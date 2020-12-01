@@ -66,4 +66,4 @@ class NSTU_API:
         for id_hash in self.__getStudentID__(phone):
             for info in self.__getStudentInfo__(id_hash['ID'], id_hash['HASH']):
                 result.append(info)
-        return info
+        return result
