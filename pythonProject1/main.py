@@ -8,9 +8,20 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import LinearSVC
 
+import logging
 from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
+import nstu_api
+
+NSTU_API = nstu_api.NSTU_API()
+
+# Enable logging
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
+)
+
+logger = logging.getLogger(__name__)
 
 button_mail = 'Бот не помог'
 stats = {'intent': 0, 'failure': 0}
@@ -39,7 +50,8 @@ def get_intent(question):
     best_intent = clf.predict(vectorizer.transform([question]))[0]
 
     index_of_best_intent = list(clf_proba.classes_).index(best_intent)
-    probabilities = clf_proba.predict_proba(vectorizer.transform([question]))[0]
+    probabilities = clf_proba.predict_proba(
+        vectorizer.transform([question]))[0]
 
     best_intent_proba = probabilities[index_of_best_intent]
     if best_intent_proba > 0.0001:
@@ -50,10 +62,26 @@ def get_styp_info(words):
     return 'Стипендии не назначено'
 
 
+def get_student_info(phone):
+    info = NSTU_API.getStudentInfo(phone)
+    if len(info) > 0:
+        info = info[0]
+        info = (f'Статус: {info["STATUS"]}\n'
+                f'ФИО: {info["FIO"]}\n'
+                f'Форма обучения: {info["FORM"].split(" ")[0]}\n'
+                f'Основа обучения: {info["BASIS"].split(" ")[0]}'
+                )
+    else:
+        info = 'Не знаю студента с таким номером телефона'
+    return info
+
+
 def bot(question):
     words = question.split(' ')
     if words[0] == 'Стипендия?':
         return get_styp_info(words)
+    if words[0] == 'Студент?':
+        return get_student_info(words[1])
 
     intent = get_intent(question)
 
@@ -82,11 +110,19 @@ def start(update, context):
 
 def help_command(update, context):
     """Send a message when the command /help is issued."""
-    update.message.reply_text('Информация об назначенной стипендии: /styp')
+    update.message.reply_text(
+        'Информация об назначенной стипендии: /styp\nИнформация о студенте: /stud_info')
 
 
 def styp_command(update: Update, context: CallbackContext):
-    update.message.reply_text('Для получения информации о стипендии пришли мне "Стипендия? Фамилия Имя Курс Группа"')
+    update.message.reply_text(
+        'Для получения информации о стипендии пришли мне "Стипендия? Фамилия Имя Курс Группа"')
+
+
+def stud_info_command(update: Update, context: CallbackContext):
+    update.message.reply_text(
+        'Для получения информации о студенте пришли мне "Студент? Номер_телефона"'
+    )
 
 
 def button_mail_handler(update: Update, context: CallbackContext):
@@ -133,7 +169,10 @@ def main():
     updater.dispatcher.add_handler(CommandHandler("start", start))
     updater.dispatcher.add_handler(CommandHandler("help", help_command))
     updater.dispatcher.add_handler(CommandHandler("styp", styp_command))
-    updater.dispatcher.add_handler(MessageHandler(Filters.text & (~Filters.command), message_handler))
+    updater.dispatcher.add_handler(
+        CommandHandler("stud_info", stud_info_command))
+    updater.dispatcher.add_handler(MessageHandler(
+        Filters.text & (~Filters.command), message_handler))
 
     updater.start_polling()
     updater.idle()
