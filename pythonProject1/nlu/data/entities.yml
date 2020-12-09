@@ -1,0 +1,4 @@
+nlu:
+  - regex: phone
+    examples: |
+      - (?:\+?7|8)?\d{10}

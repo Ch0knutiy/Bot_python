@@ -1,0 +1,28 @@
+language: ru
+
+pipeline:
+  - name: SpacyNLP
+    model: ru2
+  - name: SpacyTokenizer
+  - name: SpacyFeaturizer
+  - name: SpacyEntityExtractor
+  - name: KeywordIntentClassifier
+    case_sensitive: False
+  - name: CRFEntityExtractor
+  - name: EntitySynonymMapper
+  - name: RegexFeaturizer
+    case_sensitive: False
+  - name: RegexEntityExtractor
+    # text will be processed with case insensitive as default
+    case_sensitive: False
+    # use lookup tables to extract entities
+    use_lookup_tables: False
+    # use regexes to extract entities
+    use_regexes: True
+policies:
+  # # No configuration for policies was provided. The following default policies were used to train your model.
+  # # If you'd like to customize them, uncomment and adjust the policies.
+  # # See https://rasa.com/docs/rasa/policies for more information.
+  - name: TEDPolicy
+    epochs: 0
+    max_history: 0

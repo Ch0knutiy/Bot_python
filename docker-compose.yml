@@ -1,0 +1,27 @@
+services:
+  train:
+    environment:
+      - PYTHONUTF8=1
+    image: rasa:spacy-ru2
+    volumes:
+      - "./pythonProject1/nlu:/app/"
+    command:
+      - train
+      - nlu
+
+  start:
+    environment:
+      - PYTHONUTF8=1
+    image: rasa:spacy-ru2
+    networks: ["rasa-network"]
+    ports:
+      - "5005:5005"
+    volumes:
+      - "./pythonProject1/nlu:/app/"
+    command:
+      - run
+      - --enable-api
+      - --log-file
+      - logs/out.log
+
+networks: { rasa-network: {} }

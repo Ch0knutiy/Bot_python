@@ -1,0 +1,24 @@
+2020-12-08 21:12:12,519 [INFO ]  Starting Rasa server on http://localhost:5005
+2020-12-08 21:12:12,529 [INFO ]  Loading model models/nlu-20201208-211159.tar.gz...
+2020-12-08 21:12:13,593 [INFO ]  Loading dictionaries from /opt/venv/lib/python3.7/site-packages/pymorphy2_dicts_ru/data
+2020-12-08 21:12:13,720 [INFO ]  format: 2.4, revision: 417127, updated: 2020-10-11T15:05:51.070345
+2020-12-08 21:12:27,194 [INFO ]  Added 'SpacyNLP' to component cache. Key 'SpacyNLP-ru2'.
+2020-12-08 21:12:27,209 [INFO ]  Rasa server is up and running.
+2020-12-08 21:14:32,174 [INFO ]  Starting Rasa server on http://localhost:5005
+2020-12-08 21:14:32,185 [INFO ]  Loading model models/nlu-20201208-211419.tar.gz...
+2020-12-08 21:14:33,328 [INFO ]  Loading dictionaries from /opt/venv/lib/python3.7/site-packages/pymorphy2_dicts_ru/data
+2020-12-08 21:14:33,443 [INFO ]  format: 2.4, revision: 417127, updated: 2020-10-11T15:05:51.070345
+2020-12-08 21:14:48,216 [INFO ]  Added 'SpacyNLP' to component cache. Key 'SpacyNLP-ru2'.
+2020-12-08 21:14:48,237 [INFO ]  Rasa server is up and running.
+2020-12-08 21:16:10,297 [INFO ]  Starting Rasa server on http://localhost:5005
+2020-12-08 21:16:10,308 [INFO ]  Loading model models/nlu-20201208-211557.tar.gz...
+2020-12-08 21:16:11,470 [INFO ]  Loading dictionaries from /opt/venv/lib/python3.7/site-packages/pymorphy2_dicts_ru/data
+2020-12-08 21:16:11,589 [INFO ]  format: 2.4, revision: 417127, updated: 2020-10-11T15:05:51.070345
+2020-12-08 21:16:26,342 [INFO ]  Added 'SpacyNLP' to component cache. Key 'SpacyNLP-ru2'.
+2020-12-08 21:16:26,367 [INFO ]  Rasa server is up and running.
+2020-12-08 21:18:42,822 [INFO ]  Starting Rasa server on http://localhost:5005
+2020-12-08 21:18:42,832 [INFO ]  Loading model models/nlu-20201208-211830.tar.gz...
+2020-12-08 21:18:43,926 [INFO ]  Loading dictionaries from /opt/venv/lib/python3.7/site-packages/pymorphy2_dicts_ru/data
+2020-12-08 21:18:44,035 [INFO ]  format: 2.4, revision: 417127, updated: 2020-10-11T15:05:51.070345
+2020-12-08 21:18:57,370 [INFO ]  Added 'SpacyNLP' to component cache. Key 'SpacyNLP-ru2'.
+2020-12-08 21:18:57,395 [INFO ]  Rasa server is up and running.
